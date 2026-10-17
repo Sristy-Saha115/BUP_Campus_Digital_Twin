@@ -1,0 +1,49 @@
+// Run once:  npm run seed   (safe to re-run; it replaces clubs/faculty/places/scholarships)
+require('dotenv').config();
+const mongoose = require('mongoose');
+const connectDB = require('./config/db');
+const { Club, Faculty, Place, Scholarship } = require('./models');
+
+const clubs = [
+  { slug: 'robotics', name: 'BUP Robotics Club', url: 'https://www.facebook.com/share/18ZBoEdjBG/', icon: 'fa-robot', category: 'Technology', categoryBn: 'প্রযুক্তি', description: 'Robotics, automation and hardware projects.', descriptionBn: 'রোবোটিক্স, অটোমেশন ও হার্ডওয়্যার প্রজেক্ট।' },
+  { slug: 'programming', name: 'BUP Computer Programming Club', url: 'https://www.facebook.com/share/1JSLGNDANC/', icon: 'fa-code', category: 'Technology', categoryBn: 'প্রযুক্তি', description: 'Competitive programming, coding practice and contests.', descriptionBn: 'কম্পিটিটিভ প্রোগ্রামিং, কোডিং অনুশীলন ও প্রতিযোগিতা।' },
+  { slug: 'infotech', name: 'BUP Info Tech Club', url: 'https://www.facebook.com/share/1B6Svgpk5N/', icon: 'fa-laptop-code', category: 'Technology', categoryBn: 'প্রযুক্তি', description: 'IT skills, workshops and technology events.', descriptionBn: 'আইটি দক্ষতা, ওয়ার্কশপ ও প্রযুক্তি ইভেন্ট।' },
+  { slug: 'law', name: 'BUP Law & Moot Court Club', url: 'https://www.facebook.com/share/19ouy4DG18/', icon: 'fa-scale-balanced', category: 'Law', categoryBn: 'আইন', description: 'Legal debates, moot court and law discussions.', descriptionBn: 'আইনি বিতর্ক, মুট কোর্ট ও আলোচনা।' },
+  { slug: 'finance', name: 'BUP Finance Club', url: 'https://www.facebook.com/share/18ZoUhbTii/', icon: 'fa-chart-line', category: 'Business', categoryBn: 'ব্যবসা', description: 'Finance, investing and business learning.', descriptionBn: 'ফাইন্যান্স, বিনিয়োগ ও ব্যবসা বিষয়ক শিক্ষা।' },
+  { slug: 'media', name: 'BUP Media & Communication Club', url: 'https://www.facebook.com/share/18AxwEZcXU/', icon: 'fa-video', category: 'Media', categoryBn: 'মিডিয়া', description: 'Photography, video, journalism and communication.', descriptionBn: 'ফটোগ্রাফি, ভিডিও, সাংবাদিকতা ও যোগাযোগ।' },
+  { slug: 'literature', name: 'BUP Literature & Drama Club', url: 'https://www.facebook.com/share/1VwRwSjSM6/', icon: 'fa-masks-theater', category: 'Culture', categoryBn: 'সংস্কৃতি', description: 'Literature, drama, recitation and cultural events.', descriptionBn: 'সাহিত্য, নাটক, আবৃত্তি ও সাংস্কৃতিক অনুষ্ঠান।' },
+  { slug: 'career', name: 'BUP Career Club', url: 'https://www.facebook.com/share/1H5XDXMZx8/', icon: 'fa-briefcase', category: 'Career', categoryBn: 'ক্যারিয়ার', description: 'Career guidance, CV help and job preparation.', descriptionBn: 'ক্যারিয়ার গাইডলাইন, সিভি ও চাকরির প্রস্তুতি।' },
+  { slug: 'development', name: "BUP Development Leaders' Club", url: 'https://www.facebook.com/share/18ybspKMFG/', icon: 'fa-hands-holding-circle', category: 'Leadership', categoryBn: 'নেতৃত্ব', description: 'Leadership, social development and volunteering.', descriptionBn: 'নেতৃত্ব, সামাজিক উন্নয়ন ও স্বেচ্ছাসেবা।' },
+].map((c, i) => ({ ...c, order: i + 1 }));
+
+// PLACEHOLDER faculty (copied from your old demo). Replace with verified data.
+const faculty = [
+  { name: 'Dr. Ahsan Habib', department: 'ICE' },
+  { name: 'Prof. Rahat Chowdhury', department: 'CSE' },
+  { name: 'Dr. Nusrat Jahan', department: 'BBA' },
+];
+
+// PLACEHOLDER places for Smart Search. Replace/add verified rooms, offices, timetables.
+const places = [
+  { title: 'ICE Lab 1', details: '6th Floor, Room 604, Main Academic Building.', category: 'Lab', link: '/map' },
+  { title: 'Central Library', details: 'Ground Floor, Annex Building. 8:00 AM - 8:00 PM.', category: 'Facility', link: '/map' },
+  { title: 'BUP Bus Route 1', details: 'Mirpur-12 to BUP Main Campus.', category: 'Transport', link: '/bus' },
+  { title: 'Emergency Blood Network', details: 'Post or find urgent blood requests.', category: 'Service', link: '/blood' },
+  { title: 'Scholarships', details: 'Scholarship programs and deadlines.', category: 'Service', link: '/scholarships' },
+];
+
+// PLACEHOLDER scholarship. Replace with real, verified announcements.
+const scholarships = [
+  { title: 'Sample Scholarship (replace me)', provider: 'To be confirmed', level: 'Undergraduate', deadline: '', eligibility: 'See official notice', details: 'This is a placeholder, not a real announcement.', applyUrl: 'https://www.bup.edu.bd/' },
+];
+
+(async () => {
+  await connectDB();
+  await Promise.all([Club.deleteMany({}), Faculty.deleteMany({}), Place.deleteMany({}), Scholarship.deleteMany({})]);
+  await Club.insertMany(clubs);
+  await Faculty.insertMany(faculty);
+  await Place.insertMany(places);
+  await Scholarship.insertMany(scholarships);
+  console.log('Seed complete: clubs, faculty, places, scholarships.');
+  await mongoose.disconnect();
+})().catch((e) => { console.error(e); process.exit(1); });
