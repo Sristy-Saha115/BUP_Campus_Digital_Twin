@@ -6,7 +6,6 @@ import Home from './pages/Home.jsx';
 import CampusMap from './pages/CampusMap.jsx';
 import BusTracking from './pages/BusTracking.jsx';
 import FacultySlots from './pages/FacultySlots.jsx';
-import SmartSearch from './pages/SmartSearch.jsx';
 import BloodNetwork from './pages/BloodNetwork.jsx';
 import ClubEvents from './pages/ClubEvents.jsx';
 import Scholarships from './pages/Scholarships.jsx';
@@ -33,7 +32,6 @@ export default function App() {
           <Route path="/map" element={<CampusMap />} />
           <Route path="/bus" element={<BusTracking />} />
           <Route path="/faculty" element={<FacultySlots />} />
-          <Route path="/search" element={<SmartSearch />} />
           <Route path="/blood" element={<BloodNetwork />} />
           <Route path="/clubs" element={<ClubEvents />} />
           <Route path="/scholarships" element={<Scholarships />} />

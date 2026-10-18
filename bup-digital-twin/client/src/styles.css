@@ -59,7 +59,7 @@ main { flex: 1; }
 .search-item { padding: .8rem 0; border-bottom: 1px solid #eee; }
 
 /* Blood page */
-.blood-title { color: #0d4a35; font-weight: 700; font-size: 1.6rem; margin-bottom: 1rem; }
+.blood-title { color: var(--navy); font-weight: 700; font-size: 1.6rem; margin-bottom: 1rem; }
 .blood-card { display: flex; gap: 1rem; align-items: flex-start; }
 .blood-type { background: #c62828; color: #fff; font-weight: 700; border-radius: 10px; padding: .5rem .8rem; min-width: 56px; text-align: center; }
 
@@ -106,3 +106,42 @@ main { flex: 1; }
 .chat-bubble.me { background: var(--navy); color: #fff; align-self: flex-end; }
 
 .footer { background: var(--navy); color: rgba(255,255,255,.85); text-align: center; padding: 1.2rem 1rem; font-size: .9rem; border-top: 3px solid var(--gold); }
+
+/* ===== Shared UI pieces (project colours: navy + gold) ===== */
+.chip { border: 1px solid #cfd8e3; background: #fff; border-radius: 999px; padding: .35rem 1rem; font-weight: 500; color: var(--navy); transition: background .15s, color .15s; }
+.chip:hover { background: #e9eef5; }
+.chip.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.pill { display: inline-flex; align-items: center; background: #eef2f7; color: var(--navy); font-size: .82rem; font-weight: 600; padding: .3rem .8rem; border-radius: 999px; }
+.pill-green { background: #e1edf8; color: #124a7d; }
+.pill-gold { background: #fff3cd; color: #7a5b00; }
+.blood-type.sm { min-width: 44px; padding: .2rem .5rem; font-size: .85rem; display: inline-block; }
+
+/* ===== Scholarships ===== */
+.sch-hero { background: linear-gradient(135deg, var(--navy), var(--navy-2)); color: #fff; padding: 2.5rem 0; border-bottom: 4px solid var(--gold); }
+.sch-hero h1 { font-size: 2rem; font-weight: 700; margin: 0; }
+.sch-hero p { margin: .5rem 0 0; opacity: .85; }
+.sch-stat { display: flex; flex-direction: column; background: #fff; border-radius: 14px; padding: 1rem 1.4rem; border-left: 5px solid var(--navy); box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+.sch-stat strong { font-size: 2rem; line-height: 1.1; color: var(--navy); }
+.sch-stat span { color: #6b7785; font-size: .95rem; }
+.sch-stat.gold { border-left-color: var(--gold); }
+.sch-stat.gold strong { color: #a67c00; }
+.sch-stat.green { border-left-color: #1d6fb8; }
+.sch-stat.green strong { color: #1d6fb8; }
+.elig-box { background: #eef2f7; border-radius: 12px; padding: 1rem 1.2rem; }
+.sch-card { display: flex; flex-direction: column; background: #fff; border-radius: 16px; padding: 1.3rem; border-top: 5px solid var(--navy); box-shadow: 0 2px 12px rgba(0,0,0,.08); transition: transform .15s, box-shadow .15s; }
+.sch-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.14); }
+.sch-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin: .6rem 0 .2rem; }
+.sch-tag { display: inline-block; font-size: .78rem; font-weight: 600; padding: .2rem .7rem; border-radius: 999px; }
+.sch-tag-government { background: #e3ebf5; color: var(--navy); }
+.sch-tag-international { background: #e5eaff; color: #2b3fb3; }
+.sch-tag-university { background: #fff3cd; color: #7a5b00; }
+.heart { border: 0; background: transparent; font-size: 1.3rem; color: var(--navy); padding: 0; }
+
+/* ===== Notification bell ===== */
+.notif-menu { position: absolute; right: 0; top: calc(100% + 8px); width: min(340px, 90vw); max-height: 380px; overflow-y: auto; background: #fff; color: #222; border-radius: 12px; z-index: 1050; }
+.notif-item { display: block; padding: .6rem 1rem; border-bottom: 1px solid #eee; text-decoration: none; color: #222; }
+.notif-item:hover { background: #f3f6fa; color: #222; }
+.notif-item.unread { background: #fff8e1; }
+
+/* ===== Bus tracker ===== */
+.tracker-frame { width: 100%; height: 75vh; min-height: 520px; border: 0; border-radius: 10px; background: #eef2f7; }

@@ -7,7 +7,6 @@ const FEATURES = [
   ['/map', 'nav.map', 'f.map', 'fa-map-location-dot'],
   ['/bus', 'nav.bus', 'f.bus', 'fa-bus'],
   ['/faculty', 'nav.faculty', 'f.faculty', 'fa-calendar-check'],
-  ['/search', 'nav.search', 'f.search', 'fa-magnifying-glass-location'],
   ['/blood', 'nav.blood', 'f.blood', 'fa-droplet'],
   ['/clubs', 'nav.clubs', 'f.clubs', 'fa-people-group'],
   ['/scholarships', 'nav.scholarships', 'f.scholarships', 'fa-graduation-cap'],
