@@ -10,15 +10,17 @@ export default function Login() {
   const { authenticate } = useAuth();
   const nav = useNavigate();
   const [mode, setMode] = useState('login');
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'Student' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'Student', facultyCode: '' });
   const [msg, setMsg] = useState(null);
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const submit = async (e) => {
     e.preventDefault();
     setMsg(null);
-    try { await authenticate(mode, form); nav('/'); }
-    catch (err) { setMsg({ type: 'danger', text: err.message }); }
+    try {
+      const u = await authenticate(mode, form);
+      nav(u?.role === 'Faculty' ? '/faculty' : '/');
+    } catch (err) { setMsg({ type: 'danger', text: err.message }); }
   };
 
   return (
@@ -43,6 +45,12 @@ export default function Login() {
                 <select className="form-select mb-3" value={form.role} onChange={set('role')}>
                   {['Student', 'Faculty', 'Staff', 'Visitor'].map((r) => <option key={r}>{r}</option>)}
                 </select>
+                {form.role === 'Faculty' && (
+                  <>
+                    <label className="form-label">{t('auth.facultyCode')}</label>
+                    <input className="form-control mb-3" value={form.facultyCode} onChange={set('facultyCode')} />
+                  </>
+                )}
               </>
             )}
             <button className="btn btn-gold w-100 fw-bold">{mode === 'login' ? t('auth.login') : t('auth.register')}</button>

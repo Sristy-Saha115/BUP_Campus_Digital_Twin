@@ -18,4 +18,11 @@ function requireAuth(req, res, next) {
   }
 }
 
-module.exports = { signToken, requireAuth };
+function requireRole(...roles) {
+  return (req, res, next) =>
+    roles.includes(req.user.role)
+      ? next()
+      : res.status(403).json({ error: 'You do not have permission to do this.' });
+}
+
+module.exports = { signToken, requireAuth, requireRole };

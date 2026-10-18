@@ -11,10 +11,11 @@ export function AuthProvider({ children }) {
     api('/auth/me').then((d) => setUser(d.user)).catch(() => setToken(null));
   }, []);
 
-  const authenticate = async (mode, form) => {
+    const authenticate = async (mode, form) => {
     const d = await api(`/auth/${mode}`, { method: 'POST', body: form });
     setToken(d.token);
     setUser(d.user);
+    return d.user;
   };
   const logout = () => { setToken(null); setUser(null); };
 

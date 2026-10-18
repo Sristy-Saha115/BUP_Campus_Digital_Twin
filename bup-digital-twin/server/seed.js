@@ -2,7 +2,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
-const { Club, Faculty, Place, Scholarship } = require('./models');
+const { Club, Faculty, Place, Scholarship, SlotBooking, FacultyAvailability } = require('./models');
 
 const clubs = [
   { slug: 'robotics', name: 'BUP Robotics Club', url: 'https://www.facebook.com/share/18ZBoEdjBG/', icon: 'fa-robot', category: 'Technology', categoryBn: 'প্রযুক্তি', description: 'Robotics, automation and hardware projects.', descriptionBn: 'রোবোটিক্স, অটোমেশন ও হার্ডওয়্যার প্রজেক্ট।' },
@@ -18,10 +18,18 @@ const clubs = [
 
 // PLACEHOLDER faculty (copied from your old demo). Replace with verified data.
 const faculty = [
-  { name: 'Dr. Ahsan Habib', department: 'ICE' },
-  { name: 'Prof. Rahat Chowdhury', department: 'CSE' },
-  { name: 'Dr. Nusrat Jahan', department: 'BBA' },
-];
+  // Regular Faculty
+  { name: 'Colonel Mohammed Omar Faruque, PhD', email: 'chairman.ict@bup.edu.bd', category: 'Regular' },
+  { name: 'Dr. Mohammed Nasir Uddin', email: 'nasiruddin@bup.edu.bd', category: 'Regular' },
+  { name: 'Md. Maynul Islam', email: 'maynul@bup.edu.bd', category: 'Regular' },
+  { name: 'Saiful Islam', email: 'saifulislam@bup.edu.bd', category: 'Regular' },
+  { name: 'Nazneen Akhter', email: 'nazneen.akhter@bup.edu.bd', category: 'Regular' },
+  { name: 'Md. Sazzadul Islam Prottasha', email: 'prottasha@bup.edu.bd', category: 'Regular' },
+  // Adjunct Faculty
+  { name: 'Dr. Fahima Tabassum', email: 'fahima@juniv.edu', category: 'Adjunct' },
+  { name: 'Md. Nesar Rahman Porag', email: 'porag1010@gmail.com', category: 'Adjunct' },
+  { name: 'A T M Atiqur Rahman', email: 'atique.history@juniv.edu', category: 'Adjunct' },
+].map((f, i) => ({ ...f, department: 'ICT', order: i + 1 }));
 
 // PLACEHOLDER places for Smart Search. Replace/add verified rooms, offices, timetables.
 const places = [
@@ -39,11 +47,26 @@ const scholarships = [
 
 (async () => {
   await connectDB();
-  await Promise.all([Club.deleteMany({}), Faculty.deleteMany({}), Place.deleteMany({}), Scholarship.deleteMany({})]);
+  await Promise.all([Club.deleteMany({}), Place.deleteMany({}), Scholarship.deleteMany({})]);
   await Club.insertMany(clubs);
-  await Faculty.insertMany(faculty);
   await Place.insertMany(places);
   await Scholarship.insertMany(scholarships);
+
+  // Faculty are updated in place (matched by email), so existing bookings stay linked
+  await Faculty.deleteMany({ email: { $exists: false } });   // old placeholder entries
+  await Faculty.bulkWrite(
+    faculty.map((f) => ({ updateOne: { filter: { email: f.email }, update: { $set: f }, upsert: true } }))
+  );
+  await Faculty.deleteMany({ email: { $nin: faculty.map((f) => f.email) } });
+
+  // Remove old demo bookings made before the Pending/Accepted system existed
+  await SlotBooking.deleteMany({ faculty: { $exists: false } });
+
+  // Make the database indexes match the current models (drops the old slot index)
+  await Faculty.syncIndexes();
+  await SlotBooking.syncIndexes();
+  await FacultyAvailability.syncIndexes();
+
   console.log('Seed complete: clubs, faculty, places, scholarships.');
   await mongoose.disconnect();
 })().catch((e) => { console.error(e); process.exit(1); });

@@ -106,3 +106,14 @@ main { flex: 1; }
 .chat-bubble.me { background: var(--navy); color: #fff; align-self: flex-end; }
 
 .footer { background: var(--navy); color: rgba(255,255,255,.85); text-align: center; padding: 1.2rem 1rem; font-size: .9rem; border-top: 3px solid var(--gold); }
+/* Faculty directory headings */
+.dir-heading { color: var(--navy); font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid var(--gold); padding-bottom: .4rem; margin: 1.5rem 0 .75rem; }
+
+/* Faculty panel: tabs, booking details, completed badge */
+.fd-tabs { border-bottom: 2px solid #e5e8ee; flex-wrap: wrap; gap: .25rem; }
+.fd-tabs .nav-link { background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; color: var(--navy); font-weight: 600; padding: .6rem 1rem; }
+.fd-tabs .nav-link:hover { border-bottom-color: #cfd6e0; }
+.fd-tabs .nav-link.active { border-bottom-color: var(--gold); }
+.detail-list dt { color: #5b6573; font-weight: 600; }
+.badge-navy { background: var(--navy); color: #fff; }
+@media (max-width: 575.98px) { .fd-tabs .nav-link { padding: .5rem .65rem; font-size: .9rem; } }

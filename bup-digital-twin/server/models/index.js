@@ -10,20 +10,46 @@ const User = mongoose.model('User', new Schema({
 
 const Faculty = mongoose.model('Faculty', new Schema({
   name: { type: String, required: true },
-  department: { type: String, required: true },
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  category: { type: String, enum: ['Regular', 'Adjunct'], required: true },
+  department: { type: String, default: 'ICT' },
+  order: { type: Number, default: 99 },
+  // true once the member has added any availability; from then on only listed slots can be booked
+  availabilitySet: { type: Boolean, default: false },
 }));
 
 const slotSchema = new Schema({
   student: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  faculty: { type: Schema.Types.ObjectId, ref: 'Faculty', required: true },
   facultyName: { type: String, required: true },
   date: { type: String, required: true },      // YYYY-MM-DD
   timeSlot: { type: String, required: true },
   reason: { type: String, required: true },
-  status: { type: String, default: 'Confirmed' },
+  status: { type: String, enum: ['Pending', 'Accepted', 'Cancelled', 'Completed'], default: 'Pending' },
+  active: { type: Boolean, default: true },    // false once cancelled, which frees the slot (Completed keeps it)
+  cancelledBy: { type: String, enum: ['Faculty', 'Student', ''], default: '' },
+  cancelReason: { type: String, default: '' },
+  cancelledAt: { type: Date },
+  completedAt: { type: Date },
+  respondedAt: { type: Date },
 }, { timestamps: true });
-// Prevents two students booking the same faculty/date/time
-slotSchema.index({ facultyName: 1, date: 1, timeSlot: 1 }, { unique: true });
+
+// Only ONE active (Pending/Accepted) booking per faculty + date + time.
+// Cancelled bookings are ignored, so a cancelled slot can be booked again.
+slotSchema.index(
+  { faculty: 1, date: 1, timeSlot: 1 },
+  { unique: true, partialFilterExpression: { active: true } }
+);
 const SlotBooking = mongoose.model('SlotBooking', slotSchema);
+
+// A time slot a faculty member offers on a given date (one document per faculty + date + slot)
+const availabilitySchema = new Schema({
+  faculty: { type: Schema.Types.ObjectId, ref: 'Faculty', required: true },
+  date: { type: String, required: true },      // YYYY-MM-DD
+  timeSlot: { type: String, required: true },
+}, { timestamps: true });
+availabilitySchema.index({ faculty: 1, date: 1, timeSlot: 1 }, { unique: true });
+const FacultyAvailability = mongoose.model('FacultyAvailability', availabilitySchema);
 
 const BloodRequest = mongoose.model('BloodRequest', new Schema({
   patientName: { type: String, trim: true, default: '' },
@@ -73,4 +99,4 @@ const Place = mongoose.model('Place', new Schema({
   link: { type: String, default: '' },   // in-app route, e.g. /bus
 }));
 
-module.exports = { User, Faculty, SlotBooking, BloodRequest, Club, ClubEvent, Scholarship, Place };
+module.exports = { User, Faculty, SlotBooking, FacultyAvailability, BloodRequest, Club, ClubEvent, Scholarship, Place };
