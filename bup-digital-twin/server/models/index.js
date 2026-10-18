@@ -83,13 +83,24 @@ const ClubEvent = mongoose.model('ClubEvent', new Schema({
 }, { timestamps: true }));
 
 const Scholarship = mongoose.model('Scholarship', new Schema({
+  category: { type: String, enum: ['BUP', 'International'], required: true, index: true },
   title: { type: String, required: true },
-  provider: { type: String, default: '' },
-  level: { type: String, default: '' },
-  deadline: { type: String, default: '' },
-  eligibility: { type: String, default: '' },
-  details: { type: String, default: '' },
+  type: { type: String, default: '' },            // BUP: "Merit Based"
+  minCgpa: { type: Number },                      // BUP only
+  amount: { type: String, default: '' },          // "BDT 2,500/month"
+  country: { type: String, default: '' },
+  countryCode: { type: String, default: '' },     // 'gb', 'eu', 'us' ... (flag-icons)
+  level: { type: [String], default: [] },         // ["Master's", 'PhD']
+  funding: { type: String, default: '' },
+  deadline: { type: Date },                       // when set, status flips Open -> Closed by itself
+  deadlineNote: { type: String, default: '' },    // shown on the card when there is no fixed date
+  statusManual: { type: String, enum: ['Open', 'Closed', 'Upcoming', 'Varies'], default: 'Varies' },
+  eligibility: { type: [String], default: [] },
+  note: { type: String, default: '' },
+  sourceName: { type: String, default: '' },
   applyUrl: { type: String, default: 'https://www.bup.edu.bd/' },
+  lastVerified: { type: Date },
+  order: { type: Number, default: 99 },
 }));
 
 const Place = mongoose.model('Place', new Schema({

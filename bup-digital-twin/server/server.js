@@ -25,6 +25,7 @@ app.use('/api/bus', wrap(require('./routes/bus')));
 app.use('/api/slots', wrap(require('./routes/slots')));
 app.use('/api/blood', wrap(require('./routes/blood')));
 app.use('/api/clubs', wrap(require('./routes/clubs')));
+app.use('/api/scholarships', wrap(require('./routes/scholarships')));
 app.use('/api', wrap(require('./routes/misc')));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));

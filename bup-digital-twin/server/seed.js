@@ -40,10 +40,7 @@ const places = [
   { title: 'Scholarships', details: 'Scholarship programs and deadlines.', category: 'Service', link: '/scholarships' },
 ];
 
-// PLACEHOLDER scholarship. Replace with real, verified announcements.
-const scholarships = [
-  { title: 'Sample Scholarship (replace me)', provider: 'To be confirmed', level: 'Undergraduate', deadline: '', eligibility: 'See official notice', details: 'This is a placeholder, not a real announcement.', applyUrl: 'https://www.bup.edu.bd/' },
-];
+const scholarships = require('./scholarshipData');   // real data: server/scholarshipData.js
 
 (async () => {
   await connectDB();

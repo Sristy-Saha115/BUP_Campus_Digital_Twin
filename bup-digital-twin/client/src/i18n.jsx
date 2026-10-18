@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { SCH_EN, SCH_BN } from './scholarshipI18n.js';
 
 const T = {
   en: {
@@ -177,6 +178,8 @@ const T = {
   },
 };
 
+Object.assign(T.en, SCH_EN);   // scholarship texts
+Object.assign(T.bn, SCH_BN);
 const Ctx = createContext(null);
 
 export function LanguageProvider({ children }) {
