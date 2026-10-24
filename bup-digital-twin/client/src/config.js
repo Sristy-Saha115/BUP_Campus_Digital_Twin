@@ -12,3 +12,9 @@ export const CAMPUS_CENTER = [23.8378, 90.3582];
 
 // Official 2D map page
 export const UNIRANK_MAP_URL = 'https://www.unirank.org/bd/uni/bangladesh-university-of-professionals/map/';
+
+// Official BUP bus tracker (shown inside the Bus Tracking page)
+export const BUS_TRACKER_URL = 'https://bus-tracker-bup.web.app/';
+
+// BUP blood club website
+export const BLOOD_SITE_URL = 'https://www.bupblood.org/';

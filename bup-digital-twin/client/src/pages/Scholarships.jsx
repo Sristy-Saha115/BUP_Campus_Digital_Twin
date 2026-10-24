@@ -11,6 +11,15 @@ import '../scholarships.css';
 const STATUS_RANK = { Open: 0, Varies: 1, Upcoming: 2, Closed: 3 };
 const NO_FILTERS = { q: '', country: '', level: '', status: '' };
 
+const LEVELS = ['Secondary', 'Higher Secondary', 'Undergraduate', 'Masters', 'PhD'];
+const CATS = [['', 'sch.all'], ['Government', 'sch.government'], ['International', 'sch.international'], ['University', 'sch.university']];
+
+const daysLeft = (d) => (d ? Math.ceil((new Date(d) - Date.now()) / 864e5) : null);
+
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem('bup_saved_sch') || '[]'); } catch { return []; }
+}
+
 export default function Scholarships() {
   const { t } = useLang();
   const { user } = useAuth();

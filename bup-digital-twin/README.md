@@ -15,15 +15,16 @@ bup-digital-twin/
 1. Install Node.js 18+ and MongoDB Community Server (or use a free MongoDB Atlas URI).
 2. `copy server\.env.example server\.env` (edit `MONGODB_URI` / `JWT_SECRET` if needed)
 3. `npm install` then `npm run install:all`
-4. `npm run seed`  (loads the 9 clubs, sample faculty, search places, placeholder scholarship)
+4. `npm run seed`  (loads 9 clubs, 50 faculty, 12 sample scholarships)
 5. `npm run dev`  → open http://localhost:5173  (API on :5000)
 
 ## Things YOU must fill in
 - `client/public/img/bup.jpg` – move it from your old `static/img/`.
 - `client/src/config.js` → `HOME_VIDEO_ID` (already set to qv7C_yp3h5E), `CAMPUS_CENTER` (verify coordinates).
 - Club photos (optional): `client/public/img/clubs/<slug>.jpg` where slug = robotics, programming, infotech, law, finance, media, literature, career, development; and `client/public/img/clubs-bg.jpg` for the section background. Without them, coloured club-themed gradients are used.
-- Replace placeholder faculty / places / scholarship in `server/seed.js` with verified data, then `npm run seed`.
-- Bus tracking is simulated (`server/routes/bus.js`) until you connect a real GPS feed.
+- Verify the sample scholarship data in `server/seed.js`, then `npm run seed`.
+- Set `FACULTY_SIGNUP_CODE` in `server/.env` (faculty need it to register).
+- Bus tracking embeds https://bus-tracker-bup.web.app/ (a new-tab button is provided in case embedding is blocked).
 
 ## Production
 `npm run build` then `npm start` – Express serves `client/dist`.
