@@ -1,6 +1,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { SCH_EN, SCH_BN } from './scholarshipI18n.js';
+import { EXP_EN, EXP_BN } from './explorerI18n.js';
 
 const T = {
   en: {
@@ -628,6 +629,8 @@ const T = {
 
 Object.assign(T.en, SCH_EN);
 Object.assign(T.bn, SCH_BN);
+Object.assign(T.en, EXP_EN);
+Object.assign(T.bn, EXP_BN);
 
 const Ctx = createContext(null);
 

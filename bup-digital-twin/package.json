@@ -7,7 +7,8 @@
     "seed": "npm run seed --prefix server",
     "dev": "concurrently -n API,WEB -c blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "build": "npm run build --prefix client",
-    "start": "npm start --prefix server"
+    "start": "npm start --prefix server",
+    "kb:build": "npm run kb:build --prefix server"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

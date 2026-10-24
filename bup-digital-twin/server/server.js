@@ -27,9 +27,10 @@ app.use('/api/blood', wrap(require('./routes/blood')));
 app.use('/api/donors', wrap(require('./routes/donors')));
 app.use('/api/clubs', wrap(require('./routes/clubs')));
 app.use('/api/scholarships', wrap(require('./routes/scholarships')));
+app.use('/api/chat', wrap(require('./routes/chat')));
+app.use('/api/explorer', wrap(require('./routes/explorer')));   // public Campus Explorer (read-only, no login)
 app.use('/api', wrap(require('./routes/misc')));
 app.use('/api/notifications', wrap(require('./routes/notifications')));
-app.use('/api/chat', wrap(require('./routes/chat')));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 

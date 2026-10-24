@@ -16,6 +16,7 @@ const MAIN = [
 // Items inside the "More" dropdown
 const MORE = [
   ['/clubs', 'nav.clubs', 'fa-people-group'],
+  ['/explorer', 'nav.explorer', 'fa-compass'],
   ['/chatbot', 'nav.chatbot', 'fa-robot'],
 ];
 

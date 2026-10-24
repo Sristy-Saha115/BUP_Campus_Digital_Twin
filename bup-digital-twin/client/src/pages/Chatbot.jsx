@@ -47,7 +47,9 @@ export default function Chatbot() {
                 <div style={{ whiteSpace: 'pre-wrap' }}>{m.text ?? t('chat.hello')}</div>
                 {m.links && m.links.length > 0 && (
                   <div className="mt-2">
-                    {m.links.map((l) => <Link key={l.to} to={l.to} className="btn btn-sm btn-navy me-2">{l.label} →</Link>)}
+                    {m.links.map((l) => (/^https?:\/\//.test(l.to)
+                      ? <a key={l.to} href={l.to} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline-navy me-2 mb-1">{l.label} ↗</a>
+                      : <Link key={l.to} to={l.to} className="btn btn-sm btn-navy me-2 mb-1">{l.label} →</Link>))}
                   </div>
                 )}
               </div>
