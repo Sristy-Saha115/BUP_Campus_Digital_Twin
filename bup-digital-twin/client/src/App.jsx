@@ -13,6 +13,8 @@ import Chatbot from './pages/Chatbot.jsx';
 import CampusExplorer from './pages/CampusExplorer.jsx';
 import Login from './pages/Login.jsx';
 import NotFound from './pages/NotFound.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function ScrollTop() {
   const { pathname } = useLocation();
@@ -39,6 +41,7 @@ export default function App() {
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/explorer" element={<CampusExplorer />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<ProtectedRoute roles={['Admin']}><AdminDashboard /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

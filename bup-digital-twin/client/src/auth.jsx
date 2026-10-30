@@ -5,10 +5,15 @@ const Ctx = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  // ready = the saved login (if any) has been checked with the server
+  const [ready, setReady] = useState(() => !getToken());
 
   useEffect(() => {
     if (!getToken()) return;
-    api('/auth/me').then((d) => setUser(d.user)).catch(() => setToken(null));
+    api('/auth/me')
+      .then((d) => setUser(d.user))
+      .catch(() => setToken(null))
+      .finally(() => setReady(true));
   }, []);
 
     const authenticate = async (mode, form) => {
@@ -19,7 +24,7 @@ export function AuthProvider({ children }) {
   };
   const logout = () => { setToken(null); setUser(null); };
 
-  return <Ctx.Provider value={{ user, authenticate, logout }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ user, ready, authenticate, logout }}>{children}</Ctx.Provider>;
 }
 
 export const useAuth = () => useContext(Ctx);

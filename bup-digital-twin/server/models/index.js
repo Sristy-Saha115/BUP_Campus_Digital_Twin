@@ -10,10 +10,19 @@ const User = mongoose.model('User', new Schema({
   passwordHash: { type: String, required: true },
   role: {
     type: String,
-    enum: ['Student', 'Faculty', 'Staff', 'Visitor'],
+    enum: ['Student', 'Faculty', 'Admin', 'Staff', 'Visitor'],
     default: 'Student'
   },
-  facultyProfile: { type: Schema.Types.ObjectId, ref: 'Faculty', default: null }
+  facultyProfile: { type: Schema.Types.ObjectId, ref: 'Faculty', default: null },
+  // STUDENT_APPROVAL_V1: Student ID is optional for pre-existing faculty/admin accounts.
+  studentId: { type: String, unique: true, sparse: true },
+  approvalStatus: {
+    type: String,
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending'
+  },
+  approvalReviewedAt: { type: Date, default: null },
+  approvalReviewedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true }));
 
 const Faculty = mongoose.model('Faculty', new Schema({

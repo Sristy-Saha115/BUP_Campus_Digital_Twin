@@ -5,6 +5,9 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const { SlotBooking } = require('./models');
+const { assertAuthConfig } = require('./middleware/auth');
+const { ensureAdmin } = require('./config/ensureAdmin');
+assertAuthConfig();
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }));
@@ -31,6 +34,7 @@ app.use('/api/chat', wrap(require('./routes/chat')));
 app.use('/api/explorer', wrap(require('./routes/explorer')));   // public Campus Explorer (read-only, no login)
 app.use('/api', wrap(require('./routes/misc')));
 app.use('/api/notifications', wrap(require('./routes/notifications')));
+app.use('/api/admin', wrap(require('./routes/admin')));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
@@ -49,6 +53,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 connectDB()
   .then(() => SlotBooking.syncIndexes().catch((e) => console.error('Index sync warning:', e.message)))
+  .then(() => ensureAdmin().catch((e) => console.error('Admin setup failed:', e.message)))
   .then(() => app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`)))
   .catch((e) => {
     console.error('Could not connect to MongoDB. Is mongod running? ', e.message);

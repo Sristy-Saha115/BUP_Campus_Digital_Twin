@@ -23,7 +23,7 @@ router.post('/events', requireAuth, async (req, res) => {
 router.delete('/events/:id', requireAuth, async (req, res) => {
   const ev = await ClubEvent.findById(req.params.id);
   if (!ev) return res.status(404).json({ error: 'Event not found.' });
-  if (String(ev.createdBy) !== req.user.id) return res.status(403).json({ error: 'Only the creator can delete this event.' });
+  if (String(ev.createdBy) !== req.user.id && req.user.role !== 'Admin') return res.status(403).json({ error: 'Only the creator can delete this event.' });
   await ev.deleteOne();
   res.json({ ok: true });
 });

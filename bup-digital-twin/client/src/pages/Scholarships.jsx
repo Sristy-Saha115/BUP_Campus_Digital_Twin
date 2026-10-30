@@ -36,7 +36,7 @@ export default function Scholarships() {
     return () => clearTimeout(id);
   }, []);
 
-  const allowed = !!user && (user.role === 'Student' || user.role === 'Faculty');
+  const allowed = !!user && ['Student', 'Faculty', 'Admin'].includes(user.role);
 
   // The server decides what each role may see: Faculty never receive the BUP scholarships
   useEffect(() => {

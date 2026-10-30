@@ -21,7 +21,7 @@ const scopeFor = (req) =>
     ? { category: 'International' }
     : {};
 
-router.use(requireAuth, requireRole('Student', 'Faculty'));
+router.use(requireAuth, requireRole('Student', 'Faculty', 'Admin'));
 
 router.get('/', async (req, res) => {
   const list = await Scholarship.find(scopeFor(req)).sort('category order');
