@@ -4,6 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const { SlotBooking } = require('./models');
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }));
@@ -21,11 +22,15 @@ const wrap = (router) => {
 };
 
 app.use('/api/auth', wrap(require('./routes/auth')));
-app.use('/api/bus', wrap(require('./routes/bus')));
 app.use('/api/slots', wrap(require('./routes/slots')));
 app.use('/api/blood', wrap(require('./routes/blood')));
+app.use('/api/donors', wrap(require('./routes/donors')));
 app.use('/api/clubs', wrap(require('./routes/clubs')));
+app.use('/api/scholarships', wrap(require('./routes/scholarships')));
+app.use('/api/chat', wrap(require('./routes/chat')));
+app.use('/api/explorer', wrap(require('./routes/explorer')));   // public Campus Explorer (read-only, no login)
 app.use('/api', wrap(require('./routes/misc')));
+app.use('/api/notifications', wrap(require('./routes/notifications')));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
@@ -43,6 +48,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 connectDB()
+  .then(() => SlotBooking.syncIndexes().catch((e) => console.error('Index sync warning:', e.message)))
   .then(() => app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`)))
   .catch((e) => {
     console.error('Could not connect to MongoDB. Is mongod running? ', e.message);

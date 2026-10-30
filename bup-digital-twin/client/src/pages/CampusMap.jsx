@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import PageHero from '../components/PageHero.jsx';
 import { useLang } from '../i18n.jsx';
 import { CAMPUS_CENTER, UNIRANK_MAP_URL } from '../config.js';
+import { FacilityHighlight, FacilityMapNotice } from '../components/explorer/FacilityHighlight.jsx';
 
 export default function CampusMap() {
   const { t } = useLang();
@@ -24,12 +25,14 @@ export default function CampusMap() {
             </a>
           </div>
 
+          {tab === 'interactive' && <FacilityMapNotice />}
           {tab === 'interactive' ? (
             <MapContainer center={CAMPUS_CENTER} zoom={16} className="map-box" scrollWheelZoom>
               <TileLayer attribution="&copy; OpenStreetMap contributors" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               <CircleMarker center={CAMPUS_CENTER} radius={11} pathOptions={{ color: '#0b2a4a', fillColor: '#f2b705', fillOpacity: 0.9 }}>
                 <Popup>{t('map.campus')}</Popup>
               </CircleMarker>
+              <FacilityHighlight />
             </MapContainer>
           ) : (
             <>

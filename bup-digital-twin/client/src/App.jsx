@@ -6,11 +6,11 @@ import Home from './pages/Home.jsx';
 import CampusMap from './pages/CampusMap.jsx';
 import BusTracking from './pages/BusTracking.jsx';
 import FacultySlots from './pages/FacultySlots.jsx';
-import SmartSearch from './pages/SmartSearch.jsx';
 import BloodNetwork from './pages/BloodNetwork.jsx';
 import ClubEvents from './pages/ClubEvents.jsx';
 import Scholarships from './pages/Scholarships.jsx';
 import Chatbot from './pages/Chatbot.jsx';
+import CampusExplorer from './pages/CampusExplorer.jsx';
 import Login from './pages/Login.jsx';
 import NotFound from './pages/NotFound.jsx';
 
@@ -33,11 +33,11 @@ export default function App() {
           <Route path="/map" element={<CampusMap />} />
           <Route path="/bus" element={<BusTracking />} />
           <Route path="/faculty" element={<FacultySlots />} />
-          <Route path="/search" element={<SmartSearch />} />
           <Route path="/blood" element={<BloodNetwork />} />
           <Route path="/clubs" element={<ClubEvents />} />
           <Route path="/scholarships" element={<Scholarships />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/explorer" element={<CampusExplorer />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

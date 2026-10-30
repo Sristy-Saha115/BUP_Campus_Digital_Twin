@@ -70,7 +70,7 @@ export default function ClubEvents() {
               <div className="col-md-6">
                 <label className="form-label">{t('events.club')}</label>
                 <select className="form-select" value={form.clubName} onChange={set('clubName')} required>
-                  <option value="">{t('slot.choose')}</option>
+                  <option value="">{t('fac.choose')}</option>
                   {clubs.map((c) => <option key={c._id}>{c.name}</option>)}
                 </select>
               </div>

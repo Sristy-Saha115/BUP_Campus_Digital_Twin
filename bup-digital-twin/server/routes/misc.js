@@ -1,12 +1,7 @@
 const router = require('express').Router();
-const { Scholarship, Place, Faculty, ClubEvent, Club } = require('../models');
+const { Place, Faculty, ClubEvent, Club } = require('../models');
 
 const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-// Scholarships
-router.get('/scholarships', async (req, res) => {
-  res.json({ scholarships: await Scholarship.find().sort('title') });
-});
 
 // Smart campus search across places, faculty, clubs and events
 router.get('/search', async (req, res) => {

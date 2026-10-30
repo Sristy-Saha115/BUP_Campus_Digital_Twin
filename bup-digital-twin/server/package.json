@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "seed:demo": "node seed-demo.js",
+    "import:donors": "node import-donors.js",
+    "kb:build": "node scripts/build-kb.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,7 +17,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.5.1",
+    "cheerio": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

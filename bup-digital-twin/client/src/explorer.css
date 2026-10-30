@@ -1,0 +1,66 @@
+/* Campus Explorer - uses the project's existing colour variables (--navy, --gold, --bg) */
+
+.ex-source-note { background: #fff; border-left: 5px solid var(--gold); border-radius: 10px; padding: .75rem 1rem; box-shadow: 0 2px 10px rgba(0,0,0,.06); font-size: .92rem; color: #3c4756; }
+
+.ex-toolbar { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.ex-toolbar .ex-search { flex: 1 1 260px; min-width: 0; }
+.ex-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.ex-chips .chip { font-size: .9rem; padding: .3rem .85rem; cursor: pointer; }
+.ex-chips .chip i { margin-right: .35rem; }
+
+/* Facility cards */
+.ex-card { display: flex; flex-direction: column; height: 100%; background: #fff; border-radius: 16px; padding: 1.2rem; border-top: 5px solid var(--navy); box-shadow: 0 2px 12px rgba(0,0,0,.08); transition: transform .2s, box-shadow .2s; }
+.ex-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.14); }
+.ex-card.is-verified { border-top-color: var(--gold); }
+.ex-card-head { display: flex; gap: .85rem; align-items: flex-start; }
+.ex-card-icon { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
+.ex-card h3 { font-size: 1.08rem; font-weight: 700; color: var(--navy); margin: 0 0 .15rem; overflow-wrap: anywhere; }
+.ex-card-cat { font-size: .78rem; font-weight: 600; color: #6b7785; text-transform: uppercase; letter-spacing: .04em; }
+.ex-card p { font-size: .92rem; color: #3c4756; margin: .8rem 0 .5rem; }
+.ex-list { margin: 0 0 .6rem; padding-left: 1.1rem; font-size: .88rem; color: #3c4756; }
+.ex-list li { margin-bottom: .15rem; }
+.ex-meta { font-size: .86rem; color: #3c4756; margin-bottom: .45rem; }
+.ex-meta strong { color: var(--navy); }
+.ex-hours { width: 100%; font-size: .82rem; border-collapse: collapse; margin: .3rem 0 .2rem; }
+.ex-hours th, .ex-hours td { border-bottom: 1px solid #eef1f5; padding: .25rem .4rem; text-align: left; }
+.ex-hours th { color: #6b7785; font-weight: 600; }
+.ex-missing { background: #f4f6f9; border-radius: 10px; padding: .5rem .75rem; font-size: .8rem; color: #5b6573; margin: .3rem 0 .8rem; }
+.ex-missing i { color: #a67c00; margin-right: .35rem; }
+.ex-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: .5rem; padding-top: .6rem; }
+.ex-actions .btn { font-size: .85rem; }
+.ex-pill-none { background: #eceff3; color: #5b6573; }
+.btn.ex-disabled { pointer-events: none; opacity: .55; }
+
+/* News rows */
+.ex-news { display: flex; gap: 1rem; background: #fff; border-radius: 14px; padding: 1rem 1.1rem; box-shadow: 0 2px 10px rgba(0,0,0,.07); border-left: 5px solid var(--navy); }
+.ex-news.is-event { border-left-color: var(--gold); }
+.ex-news.is-notice { border-left-color: #7d8aa0; }
+.ex-date { flex: 0 0 74px; text-align: center; background: var(--bg); border-radius: 10px; padding: .4rem .2rem; align-self: flex-start; }
+.ex-date b { display: block; font-size: 1.4rem; line-height: 1.1; color: var(--navy); }
+.ex-date span { font-size: .72rem; color: #6b7785; text-transform: uppercase; }
+.ex-news h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: .25rem 0; overflow-wrap: anywhere; }
+.ex-news p { font-size: .88rem; color: #3c4756; margin: 0 0 .4rem; }
+.ex-news-foot { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .82rem; color: #5b6573; align-items: center; }
+
+/* Search & map tab */
+.ex-results { max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: .5rem; padding-right: .25rem; }
+.ex-result { text-align: left; width: 100%; border: 1px solid #dfe5ec; background: #fff; border-radius: 12px; padding: .65rem .8rem; transition: background .15s, border-color .15s; }
+.ex-result:hover { background: #f1f5fa; }
+.ex-result.active { border-color: var(--navy); background: #e9eef5; box-shadow: inset 4px 0 0 var(--gold); }
+.ex-result strong { display: block; color: var(--navy); font-size: .95rem; }
+.ex-result small { color: #5b6573; display: block; margin-top: .15rem; }
+.ex-selected { background: #fff; border-radius: 12px; padding: 1rem; border: 1px solid #dfe5ec; }
+
+/* Loading skeleton + empty state */
+.ex-skel { background: linear-gradient(90deg, #e9edf2 25%, #f5f7fa 37%, #e9edf2 63%); background-size: 400% 100%; animation: ex-shimmer 1.3s ease infinite; border-radius: 16px; min-height: 220px; }
+@keyframes ex-shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+@media (prefers-reduced-motion: reduce) { .ex-skel { animation: none; } .ex-card { transition: none; } }
+.ex-empty { text-align: center; padding: 2.5rem 1rem; color: #5b6573; background: #fff; border-radius: 14px; }
+.ex-empty i { font-size: 2rem; color: #b8c2cf; margin-bottom: .6rem; display: block; }
+
+@media (max-width: 575.98px) {
+  .ex-news { flex-direction: column; gap: .5rem; }
+  .ex-date { flex-basis: auto; display: flex; gap: .4rem; align-items: baseline; justify-content: flex-start; padding: .3rem .7rem; }
+  .ex-date b { font-size: 1.05rem; }
+  .ex-results { max-height: 320px; }
+}

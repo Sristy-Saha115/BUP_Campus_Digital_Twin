@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useLang } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
+import NotificationBell from './NotificationBell.jsx';
 
 // Main bar items (always visible on desktop)
 const MAIN = [
@@ -9,13 +10,13 @@ const MAIN = [
   ['/map', 'nav.map'],
   ['/bus', 'nav.bus'],
   ['/faculty', 'nav.faculty'],
-  ['/search', 'nav.search'],
   ['/blood', 'nav.blood'],
+  ['/scholarships', 'nav.scholarships'],
 ];
 // Items inside the "More" dropdown
 const MORE = [
   ['/clubs', 'nav.clubs', 'fa-people-group'],
-  ['/scholarships', 'nav.scholarships', 'fa-graduation-cap'],
+  ['/explorer', 'nav.explorer', 'fa-compass'],
   ['/chatbot', 'nav.chatbot', 'fa-robot'],
 ];
 
@@ -79,6 +80,7 @@ export default function Navbar() {
             </div>
             {user ? (
               <>
+                <NotificationBell />
                 <span className="text-white small d-none d-xl-inline">{user.name}</span>
                 <button className="btn btn-light btn-sm rounded-pill fw-semibold" onClick={() => { logout(); close(); nav('/'); }}>
                   {t('nav.logout')}
