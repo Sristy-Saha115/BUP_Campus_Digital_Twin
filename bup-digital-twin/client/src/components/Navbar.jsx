@@ -31,6 +31,7 @@ const MORE = [
   ['/clubs', 'nav.clubs', 'fa-people-group'],
   ['/explorer', 'nav.explorer', 'fa-compass'],
   ['/chatbot', 'nav.chatbot', 'fa-robot'],
+  ['/feedback', 'nav.feedback', 'fa-star'],
 ];
 
 // ==========================================
@@ -47,13 +48,13 @@ export default function Navbar() {
   const moreRef = useRef(null);
   const nav = useNavigate();
 
-  // Close navigation menus
+  // Close all navigation menus
   const close = () => {
     setOpen(false);
     setMore(false);
   };
 
-  // Close More menu when clicking outside
+  // Close More dropdown when clicking outside
   useEffect(() => {
     const onDown = (event) => {
       if (
@@ -76,37 +77,33 @@ export default function Navbar() {
       <div className="container-fluid px-lg-4">
 
         {/* ==================================
-            BUP REAL LOGO + BRAND
+            BUP LOGO + BRAND
         ================================== */}
 
         <Link
           className="navbar-brand fw-bold d-inline-flex align-items-center gap-2"
           to="/"
           onClick={close}
-          style={{
-            textDecoration: 'none'
-          }}
+          style={{ textDecoration: 'none' }}
         >
-          
-<img
-  src="/bup-logo.png"
-  alt="BUP Official Logo"
-  width="48"
-  height="48"
-  style={{
-    width: '48px',
-    height: '48px',
-    objectFit: 'contain',
-    background: 'transparent',
-    border: 'none',
-    borderRadius: '12px',
-    padding: 0,
-    boxShadow: 'none',
-    display: 'block',
-    flexShrink: 0
-  }}
-/>
-
+          <img
+            src="/bup-logo.png"
+            alt="BUP Official Logo"
+            width="48"
+            height="48"
+            style={{
+              width: '48px',
+              height: '48px',
+              objectFit: 'contain',
+              background: 'transparent',
+              border: 'none',
+              borderRadius: '12px',
+              padding: 0,
+              boxShadow: 'none',
+              display: 'block',
+              flexShrink: 0
+            }}
+          />
 
           <span className="text-nowrap">
             {t('brand')}
@@ -138,6 +135,7 @@ export default function Navbar() {
         >
           <ul className="navbar-nav mx-lg-auto align-items-lg-center">
 
+            {/* Main navigation items */}
             {MAIN.map(([to, key]) => (
               <li className="nav-item" key={to}>
                 <NavLink
@@ -151,7 +149,9 @@ export default function Navbar() {
               </li>
             ))}
 
-            {/* MORE DROPDOWN */}
+            {/* ==================================
+                MORE DROPDOWN
+            ================================== */}
 
             <li
               className="nav-item dropdown"
@@ -161,7 +161,8 @@ export default function Navbar() {
                 type="button"
                 className="nav-link dropdown-toggle btn btn-link"
                 aria-expanded={more}
-                onClick={() => setMore(!more)}
+                aria-haspopup="true"
+                onClick={() => setMore((prev) => !prev)}
               >
                 {t('nav.more')}
               </button>
@@ -180,15 +181,17 @@ export default function Navbar() {
                     >
                       <i
                         className={`fa-solid ${icon} me-2 text-secondary`}
+                        aria-hidden="true"
                       />
 
-                      {t(key)}
+                      {to === '/feedback'
+                        ? (lang === 'bn' ? 'মতামত' : 'Feedback')
+                        : t(key)}
                     </NavLink>
                   </li>
                 ))}
               </ul>
             </li>
-
           </ul>
 
           {/* ==================================
@@ -197,8 +200,7 @@ export default function Navbar() {
 
           <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0 ms-lg-auto">
 
-            {/* LANGUAGE SWITCH */}
-
+            {/* Language switching */}
             <div
               className="lang-toggle"
               role="group"
@@ -206,9 +208,7 @@ export default function Navbar() {
             >
               <button
                 type="button"
-                className={
-                  lang === 'bn' ? 'active' : ''
-                }
+                className={lang === 'bn' ? 'active' : ''}
                 onClick={() => setLang('bn')}
               >
                 বাংলা
@@ -216,23 +216,20 @@ export default function Navbar() {
 
               <button
                 type="button"
-                className={
-                  lang === 'en' ? 'active' : ''
-                }
+                className={lang === 'en' ? 'active' : ''}
                 onClick={() => setLang('en')}
               >
                 English
               </button>
             </div>
 
-            {/* AUTHENTICATED USER */}
-
+            {/* Authenticated user controls */}
             {user ? (
               <>
+                {/* Notification Bell */}
                 <NotificationBell />
 
-                {/* ADMIN DASHBOARD */}
-
+                {/* Admin Dashboard */}
                 {user.role === 'Admin' && (
                   <Link
                     className="btn btn-outline-light btn-sm rounded-pill"
@@ -243,14 +240,12 @@ export default function Navbar() {
                   </Link>
                 )}
 
-                {/* USER NAME */}
-
+                {/* User Name */}
                 <span className="text-white small d-none d-xl-inline">
                   {user.name}
                 </span>
 
-                {/* LOGOUT */}
-
+                {/* Logout */}
                 <button
                   type="button"
                   className="btn btn-light btn-sm rounded-pill fw-semibold"
@@ -264,8 +259,7 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              /* LOGIN */
-
+              /* Login */
               <Link
                 className="btn btn-light btn-sm rounded-pill fw-semibold px-3"
                 to="/login"

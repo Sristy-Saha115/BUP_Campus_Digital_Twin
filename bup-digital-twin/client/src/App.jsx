@@ -15,6 +15,7 @@ import Login from './pages/Login.jsx';
 import NotFound from './pages/NotFound.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Feedback from './pages/feedback.jsx';
 
 function ScrollTop() {
   const { pathname } = useLocation();
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<ProtectedRoute roles={['Admin']}><AdminDashboard /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </main>
       <Footer />
